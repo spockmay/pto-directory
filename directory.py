@@ -98,12 +98,26 @@ def import_excel_to_sqlite(
 
             return text
 
+        def standardize_citystatezip(text):
+            if not isinstance(text, str):
+                return text
+
+            city, statezip = text.split(",", maxsplit=1)
+            state, zip = statezip.strip().split(" ", maxsplit=1)
+            zip = zip.strip().split("-", maxsplit=1)[0]  # remove +4 from zip
+
+            return "%s, %s %s" % (
+                city.strip(),
+                state.strip().upper(),
+                zip.strip(),
+            )
+
         # Apply standardization to specific address columns
         df["mailing_address_1"] = df["mailing_address_1"].apply(
             standardize_address
         )
         df["mailing_address_2"] = df["mailing_address_2"].apply(
-            standardize_address
+            standardize_citystatezip
         )
         # -------------------------------------
 
