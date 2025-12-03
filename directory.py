@@ -47,6 +47,9 @@ def import_excel_to_sqlite(
         # This ensures 'road' becomes 'Road' before we attempt to standardize it
         df = df.apply(lambda x: x.str.title())
 
+        # Correct situations where we _don't_ want title case
+        df["grade"] = df["grade"].str.upper()
+
         # --- Address Standardization Logic ---
         address_corrections = {
             "Street": "St",
