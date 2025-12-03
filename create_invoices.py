@@ -4,12 +4,28 @@ from datetime import datetime
 
 from util.loader import load_csv_to_dict_list
 
+SIZE_MAP = {
+    "quarter": '2" x 5-1/4"',
+    "half": '3-3/4" x 5-1/4"',
+    "full": '8" x 5-1/4"',
+}
+
 
 def write_invoice_odt(invoice_num, years, advertiser):
     company = advertiser["Sponsor"].replace(".", "").strip()
-    physical_size = '1" x 3"'  # TODO
-    ad_recvd_text = advertiser["Ad Recvd"]  # TODO
+    print("* generating invoice for %s... " % company, end="")
 
+    ad_recvd_text = advertiser["Ad Recvd"]
+    if ad_recvd_text == "":
+        print("no sale")
+        return False
+
+    if ad_recvd_text == "last year":
+        ad_recvd_text = "same ad copy as last year"
+    else:
+        ad_recvd_text = "ad as received on %s" % ad_recvd_text
+
+    physical_size = SIZE_MAP[advertiser["Size"]]
     # TODO: some way to note that customer has already paid
 
     # https://relatorio.readthedocs.io/en/latest/index.html
@@ -28,7 +44,6 @@ def write_invoice_odt(invoice_num, years, advertiser):
         "ad_cost": advertiser["Cost"],
     }
     pwd = dirname(__file__)
-    print("* generating invoice for %s... " % company, end="")
     template = Template(
         source="", filepath=abspath(join(pwd, "util/invoice template.odt"))
     )
@@ -37,7 +52,9 @@ def write_invoice_odt(invoice_num, years, advertiser):
     # output file name: <INVOICE NUMBER> <ADVERTISER NAME> <YEARS> invoice
     output_filename = "output/%s %s %s.odt" % (invoice_num, company, years)
     open(join(pwd, output_filename), "wb").write(content)
-    print("done")
+    print(invoice_num)
+
+    return True
 
 
 if __name__ == "__main__":
@@ -51,5 +68,5 @@ if __name__ == "__main__":
     # for each advertiser that has a value in Ad Recvd column
     invoice_num = INITIAL_INVOICE_NUM
     for advertiser in advertisers:
-        write_invoice_odt(invoice_num, "2025-26", advertiser)
-        invoice_num += 1
+        if write_invoice_odt(invoice_num, "2025-26", advertiser):
+            invoice_num += 1
