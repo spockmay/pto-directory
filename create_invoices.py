@@ -20,7 +20,7 @@ def dollar_subtract(str1, str2):
 
 def write_invoice_odt(invoice_num, years, advertiser):
     company = advertiser["Sponsor"].replace(".", "").strip()
-    print("* generating invoice for %s... " % company, end="")
+    print("* %s..." % company, end="")
 
     ad_recvd_text = advertiser["Ad Recvd"]
     if ad_recvd_text == "":
@@ -79,9 +79,16 @@ if __name__ == "__main__":
     )
 
     INITIAL_INVOICE_NUM = 4000
+    DIRECTORY_YEAR = "2025-26"
 
-    # for each advertiser that has a value in Ad Recvd column
+    print("Generating invoices for...")
+
+    # for each advertiser generate an invoice in odt format
     invoice_num = INITIAL_INVOICE_NUM
     for advertiser in advertisers:
-        if write_invoice_odt(invoice_num, "2025-26", advertiser):
+        if write_invoice_odt(invoice_num, DIRECTORY_YEAR, advertiser):
             invoice_num += 1
+
+    print(
+        "\nDone generating odt invoices. You can use LibreOffice to convert to pdf."
+    )
