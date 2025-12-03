@@ -106,6 +106,10 @@ def import_excel_to_sqlite(
             state, zip = statezip.strip().split(" ", maxsplit=1)
             zip = zip.strip().split("-", maxsplit=1)[0]  # remove +4 from zip
 
+            if zip == "44023":  # Some people like to say Bainbridge/Auburn
+                city = "Chagrin Falls"
+                state = "OH"
+
             return "%s, %s %s" % (
                 city.strip(),
                 state.strip().upper(),
