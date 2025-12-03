@@ -11,6 +11,13 @@ SIZE_MAP = {
 }
 
 
+def dollar_subtract(str1, str2):
+    str1 = str1.replace("$", "").strip()
+    str2 = str2.replace("$", "").strip()
+
+    return float(str1) - float(str2)
+
+
 def write_invoice_odt(invoice_num, years, advertiser):
     company = advertiser["Sponsor"].replace(".", "").strip()
     print("* generating invoice for %s... " % company, end="")
@@ -26,7 +33,14 @@ def write_invoice_odt(invoice_num, years, advertiser):
         ad_recvd_text = "ad as received on %s" % ad_recvd_text
 
     physical_size = SIZE_MAP[advertiser["Size"]]
-    # TODO: some way to note that customer has already paid
+
+    # note that customer has already paid
+    ad_paid_text = advertiser["$ recvd"]
+    if ad_paid_text != "":
+        ad_paid_text = (
+            f"-- PAID {advertiser['$ recvd']} via {advertiser['Check #']}. "
+            f"Balance is ${dollar_subtract(advertiser['Cost'], advertiser['$ recvd']):.2f}"
+        )
 
     # https://relatorio.readthedocs.io/en/latest/index.html
     o = {
@@ -42,6 +56,7 @@ def write_invoice_odt(invoice_num, years, advertiser):
         "ad_recvd": ad_recvd_text,
         "ad_physical_size": physical_size,
         "ad_cost": advertiser["Cost"],
+        "ad_paid": ad_paid_text,
     }
     pwd = dirname(__file__)
     template = Template(
