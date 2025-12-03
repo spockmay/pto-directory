@@ -78,6 +78,7 @@ def import_excel_to_sqlite(
             "Floor": "Fl",
             "Square": "Sq",
             "Turnpike": "Tpke",
+            "Po Box": "PO Box",
         }
 
         def standardize_address(text):
