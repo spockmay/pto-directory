@@ -85,16 +85,14 @@ def import_excel_to_sqlite(
             if not isinstance(text, str):
                 return text
 
-            # 1. Apply abbreviations
             for full_word, abbr in address_corrections.items():
                 # Use regex \b boundaries to replace whole words only
                 # e.g., Replace 'East' but not 'Eastern'
                 pattern = r"\b" + re.escape(full_word) + r"\b"
                 text = re.sub(pattern, abbr, text)
 
-            # 2. Clean up whitespace
-            # Replace multiple spaces (r'\s+') with a single space ' '
-            text = re.sub(r"\s+", " ", text)
+            text = re.sub(r"\s+", " ", text)  # remove multiple spaces
+            text = text.replace(".", "")  # remove periods
             # Remove leading/trailing whitespace
             text = text.strip()
 
