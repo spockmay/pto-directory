@@ -39,12 +39,12 @@ def import_excel_to_sqlite(
         df.rename(columns=column_mapping, inplace=True)
         df = df.fillna("")
 
-        # Filter out SIBLING relationships
+        # Remove SIBLING relationships
         # We check .str.upper() to catch 'Sibling', 'SIBLING', or 'sibling'
         df = df[df["relationship"].str.upper() != "SIBLING"]
 
         # Apply Title Case to all columns to normalize inconsistent input
-        # This ensures 'road' becomes 'Road' before we attempt to standardize it
+        # This ensures 'road' becomes 'Road' before we standardize it
         df = df.apply(lambda x: x.str.title())
 
         # Correct situations where we _don't_ want title case
@@ -93,10 +93,8 @@ def import_excel_to_sqlite(
 
             text = re.sub(r"\s+", " ", text)  # remove multiple spaces
             text = text.replace(".", "")  # remove periods
-            # Remove leading/trailing whitespace
-            text = text.strip()
 
-            return text
+            return text.strip()
 
         def standardize_citystatezip(text):
             if not isinstance(text, str):
@@ -116,7 +114,7 @@ def import_excel_to_sqlite(
                 zip.strip(),
             )
 
-        # Apply standardization to specific address columns
+        # Apply standardization to address columns
         df["mailing_address_1"] = df["mailing_address_1"].apply(
             standardize_address
         )
@@ -191,7 +189,7 @@ def process_and_export_households(db_file_path, output_excel_path):
             .reset_index()
         )
 
-        # 4. Rename columns to match the requested output
+        # 4. Rename columns to match the desired output
         final_columns = {
             "household_id": "Household ID",
             "student_last_name": "Last Name",
@@ -203,7 +201,7 @@ def process_and_export_households(db_file_path, output_excel_path):
         }
         grouped_df.rename(columns=final_columns, inplace=True)
 
-        # 5. Reorder columns as requested
+        # 5. Reorder columns
         desired_order = [
             "Last Name",
             "Kids Names",
