@@ -39,6 +39,6 @@ To use:
 3. Set the values of `INITIAL_INVOICE_NUM` and `DIRECTORY_YEAR` as desired.
 4. Run the code. The invoice for each advertiser will appear in the `output` folder.
 
-If you want to change the content of the invoice, you need to edit the `invoice_template.odt` file in the `util` directory. The template is filled using the (relatorio module)[https://relatorio.readthedocs.io/en/latest/index.html].
+If you want to change the content of the invoice, you need to edit the `invoice_template.odt` file in the `util` directory. The template is filled using the [relatorio module](https://relatorio.readthedocs.io/en/latest/index.html).
 
 Unfortunately once the invoices are generated they are all saved as .odt files. This is not ideal, as we'd prefer something like pdf. However, the conversion from odt to pdf is non-trivial. Instead you can open each file in LibreOffice and save as a pdf. Alternately you can select all the files, right click, and select Print to PDF. You have to then select where to save each file, but it is a little easier.
