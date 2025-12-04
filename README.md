@@ -47,5 +47,6 @@ Unfortunately once the invoices are generated they are all saved as .odt files. 
 This code will send the invoices generated to the individual advertisers.
 
 To use:
-1. Make sure the config.ini file is setup correctly and the body of the email is correct. See the [initial_advertiser_email Section](#initial_advertiser_emailpy).
-2. Change `TEST_RUN` to `False` and run the script. The sent emails will appear in your Gmail Sent mail folder.
+1. Make sure that pdf versions of each of the invoices is located in `output/`
+2. Make sure the config.ini file is setup correctly and the body of the email is correct. See the [initial_advertiser_email Section](#initial_advertiser_emailpy).
+3. Change `TEST_RUN` to `False` and run the script. The sent emails will appear in your Gmail Sent mail folder.
