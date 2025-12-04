@@ -2,3 +2,4 @@
 *.xlsx
 *.old
 *.bak
+config_secrets.ini
