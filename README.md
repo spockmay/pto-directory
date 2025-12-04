@@ -42,3 +42,10 @@ To use:
 If you want to change the content of the invoice, you need to edit the `invoice_template.odt` file in the `util` directory. The template is filled using the [relatorio module](https://relatorio.readthedocs.io/en/latest/index.html).
 
 Unfortunately once the invoices are generated they are all saved as .odt files. This is not ideal, as we'd prefer something like pdf. However, the conversion from odt to pdf is non-trivial. Instead you can open each file in LibreOffice and save as a pdf. Alternately you can select all the files, right click, and select Print to PDF. You have to then select where to save each file, but it is a little easier.
+
+## send_advertiser_invoice.py
+This code will send the invoices generated to the individual advertisers.
+
+To use:
+1. Make sure the config.ini file is setup correctly and the body of the email is correct. See the [initial_advertiser_email Section](#initial_advertiser_emailpy).
+2. Change `TEST_RUN` to `False` and run the script. The sent emails will appear in your Gmail Sent mail folder.
