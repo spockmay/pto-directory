@@ -225,9 +225,9 @@ def process_and_export_households(db_file_path, output_excel_path):
 # --- Execution Block ---
 if __name__ == "__main__":
     # REPLACE THESE VALUES WITH YOUR ACTUAL FILE NAMES
-    source_excel = "directory 2526.xlsx"
-    temp_db = "directory.db"
-    final_output = "directory 2526 output.xlsx"
+    source_excel = "input/directory 2526.xlsx"
+    temp_db = "output/directory.db"
+    final_output = "output/directory 2526 output.xlsx"
 
     # Run the function
     import_excel_to_sqlite(source_excel, temp_db)
