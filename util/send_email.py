@@ -72,7 +72,7 @@ def send_mail(
 if __name__ == "__main__":
     # load the config file's settings
     config = configparser.ConfigParser()
-    config.read("config.ini")
+    config.read("config_secrets.ini")
     secrets = dict(config["send_email"])
 
     # send test email

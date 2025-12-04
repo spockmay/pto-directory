@@ -22,7 +22,7 @@ To use:
 This code is used at the start of the advertiser season to send an email to previous or new advertisers to gauge their interest in running an ad. 
 
 To use:
-1. Update the config.ini file with the proper credentials to send emails
+1. Rename the config.ini file to `config_secrets.ini` and fill with the proper credentials to send emails
 2. Download the Directory Sponsors Google Sheet as a csv file and place it in the input folder
 3. Update the value of the argument passed to the `load_csv_to_dict_list` function with the name of the file
 4. Set `TEST_RUN` to `True`
@@ -48,5 +48,5 @@ This code will send the invoices generated to the individual advertisers.
 
 To use:
 1. Make sure that pdf versions of each of the invoices is located in `output/`
-2. Make sure the config.ini file is setup correctly and the body of the email is correct. See the [initial_advertiser_email Section](#initial_advertiser_emailpy).
+2. Make sure the config_secrets.ini file is setup correctly and the body of the email is correct. See the [initial_advertiser_email Section](#initial_advertiser_emailpy).
 3. Change `TEST_RUN` to `False` and run the script. The sent emails will appear in your Gmail Sent mail folder.
